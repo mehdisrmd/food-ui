@@ -2,10 +2,11 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 
-import 'package:food_ui1/providers/google-signin-provider.dart';
-import 'package:food_ui1/screen/home_screen.dart';
+import 'package:food_ui1/controllers/google-signin-provider.dart';
 
 class LoggedInScreen extends StatelessWidget {
   const LoggedInScreen({Key? key}) : super(key: key);
@@ -19,7 +20,7 @@ class LoggedInScreen extends StatelessWidget {
         actions: [
           TextButton(
               onPressed: () =>
-                  Provider.of<GooogleSignInProvider>(context, listen: false)
+                Get.find  <GooogleSignInProvider>()
                       .logout(),
               child: const Text('Logout'))
         ],
@@ -45,8 +46,7 @@ class LoggedInScreen extends StatelessWidget {
             ),
             Text('Email:${user.email}'),
             MaterialButton(
-                onPressed: () => Navigator.of(context)
-                    .pushReplacementNamed(HomeScreen.routeName),
+                onPressed: () => Get.toNamed('/home_screen',),
                 child: const Text('Go to home ')),
           ],
         ),

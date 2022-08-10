@@ -1,11 +1,14 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:get/get.dart';
 
 CustomThemeProvidr customThemeProvidr = CustomThemeProvidr();
 
-class CustomThemeProvidr extends ChangeNotifier {
+class CustomThemeProvidr extends GetxController {
   ThemeMode currentTheme = ThemeMode.light;
+  
 
   void selectMode(int check) {
     switch (check) {
@@ -22,7 +25,11 @@ class CustomThemeProvidr extends ChangeNotifier {
         break;
       case 2:
         {
-          currentTheme = ThemeMode.system;
+          // currentTheme = ThemeMode.system;
+          var brightness = SchedulerBinding.instance.window.platformBrightness;
+          if(brightness==Brightness.light){currentTheme=currentTheme = ThemeMode.light;}else{
+             currentTheme = ThemeMode.dark;
+          }
         }
         break;
       default:
@@ -30,7 +37,7 @@ class CustomThemeProvidr extends ChangeNotifier {
           currentTheme = ThemeMode.system;
         }
     }
-    notifyListeners();
+    update();
   }
 
   static ThemeData get lightTheme {

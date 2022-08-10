@@ -1,14 +1,15 @@
 // ignore_for_file: file_names
 
-import 'package:flutter/material.dart';
-import 'package:food_ui1/models/product-model.dart';
 
-class ProductProvider with ChangeNotifier {
+import 'package:food_ui1/models/product-model.dart';
+import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+
+class ProductProvider extends GetxController {
   var counter = 0;
   void addCounter() {
     counter++;
 
-    notifyListeners();
+    update();
   }
 
   List<ProductModel> listProduct = [

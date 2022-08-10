@@ -1,9 +1,11 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:food_ui1/providers/category-provider.dart';
-import 'package:food_ui1/providers/themes/custon-theme.dart';
-import 'package:provider/provider.dart';
+import 'package:food_ui1/controllers/themes/custon-theme.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
+
+import 'package:food_ui1/controllers/category-provider.dart';
 
 class Category extends StatefulWidget {
   const Category({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class _CategoryState extends State<Category> {
   int active = 0;
   @override
   Widget build(BuildContext context) {
-    var categoryProvider = Provider.of<CategoryProvider>(context).list;
+    var categoryProvider = Get.find<CategoryProvider>().list;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Padding(

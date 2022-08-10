@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 
+import 'package:food_ui1/controllers/product-provider.dart';
 import 'package:food_ui1/models/product-model.dart';
-import 'package:food_ui1/providers/product-provider.dart';
 import 'package:food_ui1/widgets/details_screen_widget/buttomRow-widget.dart';
 import 'package:food_ui1/widgets/details_screen_widget/combo-widget.dart';
 import 'package:food_ui1/widgets/details_screen_widget/image-view.dart';
@@ -10,12 +12,12 @@ import 'package:food_ui1/widgets/details_screen_widget/rating-widget.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({Key? key}) : super(key: key);
-  static var routeName = '/details_Screen';
+  
   @override
   Widget build(BuildContext context) {
-    var index = ModalRoute.of(context)!.settings.arguments as int;
+    var index = Get.arguments;
     List<ProductModel> productData =
-        Provider.of<ProductProvider>(context, listen: false).listProduct;
+     Get.find<ProductProvider>().listProduct;
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     var divider = Container(

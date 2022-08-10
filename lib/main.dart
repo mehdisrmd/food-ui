@@ -1,17 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:food_ui1/controllers/themes/custon-theme.dart';
+import 'package:get/get_navigation/get_navigation.dart';
 
-import 'package:food_ui1/providers/google-signin-provider.dart';
-import 'package:food_ui1/providers/product-provider.dart';
-import 'package:food_ui1/providers/themes/custon-theme.dart';
+import 'package:food_ui1/bindings/my_bindings.dart';
 import 'package:food_ui1/screen/details_screen.dart';
 import 'package:food_ui1/screen/home_screen.dart';
 import 'package:food_ui1/screen/logged-in-screen.dart';
 import 'package:food_ui1/screen/sign-in-google.dart';
-
-import 'providers/category-provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -38,40 +35,37 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider.value(value: CategoryProvider()),
-        ChangeNotifierProvider.value(value: ProductProvider()),
-        ChangeNotifierProvider.value(value: CustomThemeProvidr()),
-        ChangeNotifierProvider.value(value: GooogleSignInProvider()),
+    return GetMaterialApp(
+      initialRoute: '/home_screen',
+      initialBinding: MyBindings(),
+      getPages: [
+        GetPage(name: '/details_screen', page: () => DetailsScreen()),
+        GetPage(name: '/home_screen', page: () => HomeScreen()),
+        GetPage(name: '/google_login_screen', page: () => LoggedInScreen()),
+        GetPage(
+            name: '/google_signin_screen', page: () => GoogleSignInScreen()),
       ],
-      child: MaterialApp(
-        routes: {
-          DetailsScreen.routeName: ((context) => const DetailsScreen()),
-          HomeScreen.routeName:((context) => const HomeScreen()),
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: CustomThemeProvidr.lightTheme,
+      darkTheme: CustomThemeProvidr.darkTheme,
+      themeMode: customThemeProvidr.currentTheme,
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text('Something Went Wrong!'),
+            );
+          } else if (snapshot.hasData) {
+            return const LoggedInScreen();
+          }
+          return const GoogleSignInScreen();
         },
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: CustomThemeProvidr.lightTheme,
-        darkTheme: CustomThemeProvidr.darkTheme,
-        themeMode: customThemeProvidr.currentTheme,
-        home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child:  CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return const Center(
-                child:  Text('Something Went Wrong!'),
-              );
-            } else if (snapshot.hasData) {
-              return const LoggedInScreen();
-            }
-            return const GoogleSignInScreen();
-          },
-        ),
       ),
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_ui1/providers/themes/custon-theme.dart';
+import 'package:food_ui1/controllers/themes/custon-theme.dart';
 import 'package:food_ui1/widgets/home_screen_widget/appBar-widget.dart';
 
 import 'package:food_ui1/widgets/home_screen_widget/bottomNavigation-widget.dart';
@@ -11,7 +11,7 @@ import 'package:food_ui1/widgets/home_screen_widget/searchBox-widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-  static var routeName = '/hoemScreen';
+ 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;

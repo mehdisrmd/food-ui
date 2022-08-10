@@ -1,12 +1,14 @@
 // ignore_for_file: file_names
 
+import 'package:badges/badges.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:food_ui1/providers/product-provider.dart';
-import 'package:food_ui1/providers/themes/custon-theme.dart';
-import 'package:provider/provider.dart';
+import 'package:food_ui1/controllers/themes/custon-theme.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
+
+import 'package:food_ui1/controllers/product-provider.dart';
 
 class BottomNavigationBarWidget extends StatefulWidget {
   const BottomNavigationBarWidget({Key? key}) : super(key: key);
@@ -21,7 +23,7 @@ class _BottomNavigationBarWidgetState extends State<BottomNavigationBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var itemCounter = Provider.of<ProductProvider>(context).counter;
+    var itemCounter =Get.find<ProductProvider>().counter;
     var badge = Badge(
       padding: const EdgeInsets.all(3),
       elevation: 0,

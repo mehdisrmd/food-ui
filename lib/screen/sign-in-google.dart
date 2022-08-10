@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:food_ui1/controllers/themes/custon-theme.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
 
-import 'package:food_ui1/providers/google-signin-provider.dart';
-import 'package:food_ui1/providers/themes/custon-theme.dart';
+import 'package:food_ui1/controllers/google-signin-provider.dart';
+
 
 class GoogleSignInScreen extends StatefulWidget {
   const GoogleSignInScreen({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class GoogleSignInScreen extends StatefulWidget {
 class _GoogleSignInState extends State<GoogleSignInScreen> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<GooogleSignInProvider>(context, listen: false);
+    final provider = Get.find<GooogleSignInProvider>();
     return Scaffold(
       body: Center(
         child: SizedBox(

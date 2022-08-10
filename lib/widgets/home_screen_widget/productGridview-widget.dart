@@ -1,9 +1,11 @@
 // ignore_for_file: file_names, camel_case_types
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_ui1/providers/product-provider.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/get_instance.dart';
+
+import 'package:food_ui1/controllers/product-provider.dart';
 import 'package:food_ui1/widgets/home_screen_widget/gridBuilder-widget.dart';
-import 'package:provider/provider.dart';
 
 class ProductGridView extends StatelessWidget {
   const ProductGridView({
@@ -18,7 +20,7 @@ class ProductGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var productData =
-        Provider.of<ProductProvider>(context, listen: false).listProduct;
+        Get.find<ProductProvider>().listProduct;
     return Expanded(
       child: GridView.builder(
           itemCount: productData.length,

@@ -3,11 +3,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:food_ui1/controllers/themes/custon-theme.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:get/route_manager.dart';
+
+import 'package:food_ui1/controllers/product-provider.dart';
 import 'package:food_ui1/models/product-model.dart';
-import 'package:food_ui1/providers/product-provider.dart';
-import 'package:food_ui1/providers/themes/custon-theme.dart';
-import 'package:food_ui1/screen/details_screen.dart';
-import 'package:provider/provider.dart';
 
 class GridBuilder extends StatelessWidget {
   const GridBuilder({
@@ -41,7 +42,7 @@ class GridBuilder extends StatelessWidget {
           Align(
             alignment: Alignment.bottomRight,
             child: GestureDetector(
-              onTap: () => Provider.of<ProductProvider>(context, listen: false)
+              onTap: () => Get.find<ProductProvider>()
                   .addCounter(),
               child: Container(
                 padding: const EdgeInsets.all(5),
@@ -81,8 +82,7 @@ class GridBuilder extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => Navigator.of(context)
-                .pushNamed(DetailsScreen.routeName, arguments: index),
+            onTap: () => Get.toNamed('/details_screen', arguments: index),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
